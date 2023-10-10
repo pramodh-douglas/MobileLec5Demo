@@ -3,7 +3,10 @@ package com.example.mobilelec5demo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,12 +28,19 @@ public class MainActivity extends AppCompatActivity {
         ListView listViewSongs = findViewById(R.id.listViewSongs);
 
         // Create adapter object
-        SongAdapter songAdapter = new SongAdapter(SongList);
+        // SongAdapter songAdapter = new SongAdapter(SongList);
+
+        // Create adapter object with song adapater 2
+        SongAdapter2 songAdapter = new SongAdapter2(SongList);
+
 
         // Set adapter object onto ListView
         listViewSongs.setAdapter(songAdapter);
 
         // Set onItemClick Listener for ListView
+        listViewSongs.setOnItemClickListener((AdapterView<?> adapterView, View view, int i, long l) -> {
+            Toast.makeText(this, "Clicked On " + SongList.get(i).getSongName(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void LoadModelData() {
