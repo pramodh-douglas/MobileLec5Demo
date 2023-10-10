@@ -10,12 +10,36 @@ import android.widget.TextView;
 
 import java.util.List;
 
+// song adapter class for layout_song2
 public class SongAdapter2  extends BaseAdapter {
     // data
     List<Song> adapterSongs2;
+    int SelectedInd = -1;
 
+    // constructor
     public SongAdapter2(List<Song> adapterSongs2) {
         this.adapterSongs2 = adapterSongs2;
+    }
+
+    public List<Song> getAdapterSongs2() {
+        return adapterSongs2;
+    }
+
+    public void setAdapterSongs2(List<Song> adapterSongs2) {
+        this.adapterSongs2 = adapterSongs2;
+        notifyDataSetChanged();
+    }
+
+    public int getSelectedInd() {
+        return SelectedInd;
+    }
+
+    public void setSelectedInd(int selectedInd) {
+        SelectedInd = selectedInd;
+
+        // data has changed, calls getViews again to repopulate adapter
+        // adding this method here ensures that we don't miss having it somewhere else
+        notifyDataSetChanged();
     }
 
     @Override
@@ -44,8 +68,15 @@ public class SongAdapter2  extends BaseAdapter {
         ImageView imgViewPlayStop = view.findViewById(R.id.imgViewPlayStop);
         txtViewSong2.setText(adapterSongs2.get(i).getSongName());
         imgViewSong2.setImageResource(adapterSongs2.get(i).getSongPic());
-        imgViewPlayStop.setImageResource(R.drawable.play);
-       //  txtViewSong2.setGravity(Gravity.CENTER_VERTICAL);
+
+        // check selected index and show play or stop
+        if(i == SelectedInd) {
+            imgViewPlayStop.setImageResource(R.drawable.stop);
+        } else {
+            imgViewPlayStop.setImageResource(R.drawable.play);
+        }
+
+        txtViewSong2.setGravity(Gravity.CENTER_VERTICAL);
 
         return view;
     }
